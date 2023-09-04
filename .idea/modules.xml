@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/FIB_Library.iml" filepath="$PROJECT_DIR$/.idea/FIB_Library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FIBlioteca/FIBlioteca.iml" filepath="$PROJECT_DIR$/FIBlioteca/FIBlioteca.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyFIBLibrary/MyFIBLibrary.iml" filepath="$PROJECT_DIR$/MyFIBLibrary/MyFIBLibrary.iml" />
+    </modules>
+  </component>
+</project>
