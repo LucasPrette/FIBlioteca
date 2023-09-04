@@ -45,10 +45,17 @@ public class Book {
     };
 
     public void showBook() {
-        System.out.println("____Books____ ");
         System.out.println("ISBN: " + this.isbn);
         System.out.println("Title: " + this.title);
         System.out.println("Author: " + this.author);
     };
+
+    public void showList() {
+        for (int i = 0; i< 100; i++) {
+            System.out.println("EU odeio o git e o github");
+        }
+    }
+
+    // is it working or not ?
 
 };
