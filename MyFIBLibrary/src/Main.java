@@ -3,7 +3,7 @@ import repositories.BookRepository;
 import repositories.LoanRepository;
 import repositories.StudentRepository;
 import services.DataManipulation;
-import services.TestDbConnection;
+import services.DbConnection;
 
 import java.util.Scanner;
 
@@ -21,7 +21,7 @@ public class Main{
                         loanRepository.getLoans()
                 );
 
-        if (new TestDbConnection().testConnection()) {
+        if (new DbConnection().getConnection() != null) {
 
             Scanner scanner = new Scanner(System.in);
             int option;
