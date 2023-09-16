@@ -3,6 +3,7 @@ import repositories.BookRepository;
 import repositories.LoanRepository;
 import repositories.StudentRepository;
 import services.DataManipulation;
+import services.TestDbConnection;
 
 import java.util.Scanner;
 
@@ -20,32 +21,36 @@ public class Main{
                         loanRepository.getLoans()
                 );
 
-        Scanner scanner = new Scanner(System.in);
-        int option;
+        if (new TestDbConnection().testConnection()) {
 
-        do{
-            System.out.println("0 - EXIT");
-            System.out.println("1 - LIST STUDENTS");
-            System.out.println("2 - LIST BOOKS");
-            System.out.println("3 - LIST LOANS");
-            System.out.println("4 - LIST LOANS NOT RETURNED");
-            System.out.println("5 - LOAN BOOK");
-            System.out.println("6 - RETURN BOOK");
-            System.out.println("7 - UPDATE ACTIVE BOOKS");
-            System.out.println("8 - UPDATE DELAYED BOOKS");
-            System.out.print("--> ");
-            option = scanner.nextInt();
+            Scanner scanner = new Scanner(System.in);
+            int option;
 
-            switch (option) {
-                case 1 : studentRepository.listStudent(); break;
-                case 2 : bookRepository.listBook(); break;
-                case 3 : loanRepository.listLoan(); break;
-                case 4 : loanRepository.listLoanNotReturned(); break;
-                case 5 : lib.takeBook(); break;
-                case 6 : lib.returnLoan(); break;
-                case 7 : lib.updateActiveLoan(); break;
-                case 8 : lib.updateDelayedLoan(); break;
-            }
-        } while(option != 0);
+            do{
+                System.out.println("0 - EXIT");
+                System.out.println("1 - LIST STUDENTS");
+                System.out.println("2 - LIST BOOKS");
+                System.out.println("3 - LIST LOANS");
+                System.out.println("4 - LIST LOANS NOT RETURNED");
+                System.out.println("5 - LOAN BOOK");
+                System.out.println("6 - RETURN BOOK");
+                System.out.println("7 - UPDATE ACTIVE BOOKS");
+                System.out.println("8 - UPDATE DELAYED BOOKS");
+                System.out.print("--> ");
+                option = scanner.nextInt();
+
+                switch (option) {
+                    case 1 : studentRepository.listStudent(); break;
+                    case 2 : bookRepository.listBook(); break;
+                    case 3 : loanRepository.listLoan(); break;
+                    case 4 : loanRepository.listLoanNotReturned(); break;
+                    case 5 : lib.takeBook(); break;
+                    case 6 : lib.returnLoan(); break;
+                    case 7 : lib.updateActiveLoan(); break;
+                    case 8 : lib.updateDelayedLoan(); break;
+                }
+            } while(option != 0);
+        }
+
     };
 };

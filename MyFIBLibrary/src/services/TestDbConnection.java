@@ -11,16 +11,18 @@ public class TestDbConnection {
     String user = "aluno";
     String password = "123";
 
-    public void testConnection () {
+    public boolean testConnection () {
 
         try {
             Connection connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connected!!");
             connection.close();
+            return true;
 
         } catch (SQLException e) {
             System.out.println("Connection error!!" + e.getMessage());
         }
+        return false;
 
     }
 
