@@ -36,6 +36,7 @@ public class Main{
                 System.out.println("6 - RETURN BOOK");
                 System.out.println("7 - UPDATE ACTIVE BOOKS");
                 System.out.println("8 - UPDATE DELAYED BOOKS");
+                System.out.println("9 - ADD BOOK");
                 System.out.print("--> ");
                 option = scanner.nextInt();
 
@@ -48,6 +49,8 @@ public class Main{
                     case 6 : lib.returnLoan(); break;
                     case 7 : lib.updateActiveLoan(); break;
                     case 8 : lib.updateDelayedLoan(); break;
+                    case 9 : bookRepository.insertBook(111, "As Cronicas de Gelo e Fogo", "George R R Martin"); break;
+                    case 10: bookRepository.clearTable(); break;
                 }
             } while(option != 0);
         }

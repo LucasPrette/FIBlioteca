@@ -43,7 +43,7 @@ public class BookRepository {
 
 
 
-    public void addBook(int isbn, String title, String author) {
+    public void insertBook(int isbn, String title, String author) {
 
         try {
             Connection connection = new DbConnection().getConnection();
@@ -62,6 +62,18 @@ public class BookRepository {
 
         } catch (SQLException e) {
             System.err.println("error!!");
+        }
+    }
+
+    public void clearTable() {
+        try {
+            Connection connection = new DbConnection().getConnection();
+            String sqlQuery = "DELETE FROM fib.fiblioteca.livro ;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.executeUpdate();
+            System.out.println("Table cleared sucessfully.");
+        } catch (SQLException e) {
+            System.err.println("Table clearing failed! " + e.getMessage());
         }
     }
 

@@ -2,8 +2,14 @@ package repositories;
 
 import eNum.Status;
 import implementations.Loan;
+import services.DbConnection;
 import services.ReadTXT;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class LoanRepository {
@@ -108,5 +114,29 @@ public class LoanRepository {
         return false;
     };
 
+    public void insertLoan(int ra, int isbn, LocalDate bookWithdrawl, LocalDate bookReturnal, Status status) {
+        try {
+            Connection connection = new DbConnection().getConnection();
+            String sqlQuery = "INSERT INTO fib.fiblioteca.loan (studentRa, bookIsbn, book_withdrawl, book_returnal, loan_status) VALUE (?,?,?,?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, ra);
+            preparedStatement.setInt(2, isbn);
+            preparedStatement.setDate(3, Date.valueOf(bookWithdrawl));
+            preparedStatement.setDate(4, Date.valueOf(bookReturnal));
+            preparedStatement.setInt(5,status.ordinal());
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            if(rowsInserted > 0) {
+                System.out.println("Line inserted successfully! ");
+            } else {
+                System.out.println("Line insertion failed! ");
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            System.out.println("SQL error");
+        }
+
+    }
 
 };
