@@ -117,7 +117,7 @@ public class LoanRepository {
     public void insertLoan(int ra, int isbn, LocalDate bookWithdrawl, LocalDate bookReturnal, Status status) {
         try {
             Connection connection = new DbConnection().getConnection();
-            String sqlQuery = "INSERT INTO fib.fiblioteca.loan (studentRa, bookIsbn, book_withdrawl, book_returnal, loan_status) VALUE (?,?,?,?,?)";
+            String sqlQuery = "INSERT INTO fib.fiblioteca.loan (studentRa, bookIsbn, book_withdrawl, book_returnal, loan_status) VALUES (?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, ra);
             preparedStatement.setInt(2, isbn);
@@ -134,7 +134,7 @@ public class LoanRepository {
             connection.close();
 
         } catch (SQLException e) {
-            System.out.println("SQL error");
+            System.out.println("SQL error" + e.getMessage());
         }
 
     }

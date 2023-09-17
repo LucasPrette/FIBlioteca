@@ -1,3 +1,4 @@
+import eNum.Status;
 import implementations.Library;
 import repositories.BookRepository;
 import repositories.LoanRepository;
@@ -5,6 +6,7 @@ import repositories.StudentRepository;
 import services.DataManipulation;
 import services.DbConnection;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main{
@@ -37,6 +39,8 @@ public class Main{
                 System.out.println("7 - UPDATE ACTIVE BOOKS");
                 System.out.println("8 - UPDATE DELAYED BOOKS");
                 System.out.println("9 - ADD BOOK");
+                System.out.println("10 - ADD STUDENT");
+                System.out.println("11 - ADD LOAN");
                 System.out.print("--> ");
                 option = scanner.nextInt();
 
@@ -50,7 +54,9 @@ public class Main{
                     case 7 : lib.updateActiveLoan(); break;
                     case 8 : lib.updateDelayedLoan(); break;
                     case 9 : bookRepository.insertBook(111, "As Cronicas de Gelo e Fogo", "George R R Martin"); break;
-                    case 10: bookRepository.clearTable(); break;
+                    case 10: studentRepository.insertStudent(111, "Lucas Javeiro");break;
+                    case 11: loanRepository.insertLoan(111,111, LocalDate.parse("2023-09-17"), LocalDate.parse("2023-09-24"), Status.RETURNED);break;
+                    case 12: bookRepository.clearTable(); break;
                 }
             } while(option != 0);
         }

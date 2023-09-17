@@ -4,9 +4,7 @@ import implementations.Book;
 import services.DbConnection;
 import services.ReadTXT;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class BookRepository {
@@ -63,6 +61,30 @@ public class BookRepository {
         } catch (SQLException e) {
             System.err.println("error!!");
         }
+    }
+
+    public ArrayList<Book> getAllBooks() {
+        ArrayList<Book> books = new ArrayList<>();
+
+        try {
+            Connection connection = new DbConnection().getConnection();
+            Statement statement = connection.createStatement();
+            String sqlQuery = "SELECT isbn, title, author FROM fiblioteca.livro";
+            ResultSet result = statement.executeQuery(sqlQuery);
+
+            while(result.next()) {
+                int isbn = result.getInt("isbn");
+                String author = result.getString("author");
+                String title = result.getString("title");
+                books.add(new Book(isbn, title, author));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            System.err.println("SQL ERROR!!" + e.getMessage());
+        }
+
+        return books;
     }
 
     public void clearTable() {
