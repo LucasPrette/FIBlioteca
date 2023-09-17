@@ -1,8 +1,12 @@
 package repositories;
 
 import implementations.Student;
+import services.DbConnection;
 import services.ReadTXT;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 public class StudentRepository {
     private ArrayList<Student> students;
@@ -43,6 +47,27 @@ public class StudentRepository {
             }
         }
         return false;
+    };
+
+    public void insertStudent(int ra, String name) {
+
+        try{
+            Connection connection = new DbConnection().getConnection();
+            String sqlQuery = "INSERT INTO fib.fiblioteca.student (ra, name) VALUES (?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, ra);
+            preparedStatement.setString(2, name);
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            if (rowsInserted > 0) {
+                System.out.println("Lines inserted successfully! ");
+            } else {
+                System.err.println("Line insertion failed!! ");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error on DataBase" + e.getMessage());
+
+        }
     };
 
 };
