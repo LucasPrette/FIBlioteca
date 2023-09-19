@@ -41,6 +41,7 @@ public class Main{
                 System.out.println("9 - ADD BOOK");
                 System.out.println("10 - ADD STUDENT");
                 System.out.println("11 - ADD LOAN");
+                System.out.println("12 - GET ALL BOOKS FROM DB");
                 System.out.print("--> ");
                 option = scanner.nextInt();
 
@@ -56,7 +57,9 @@ public class Main{
                     case 9 : bookRepository.insertBook(111, "As Cronicas de Gelo e Fogo", "George R R Martin"); break;
                     case 10: studentRepository.insertStudent(111, "Lucas Javeiro");break;
                     case 11: loanRepository.insertLoan(111,111, LocalDate.parse("2023-09-17"), LocalDate.parse("2023-09-24"), Status.RETURNED);break;
-                    case 12: bookRepository.clearTable(); break;
+                    case 12: System.out.println(bookRepository.getAllBooks());break;
+                    case 13: bookRepository.clearTable(); break;
+
                 }
             } while(option != 0);
         }
