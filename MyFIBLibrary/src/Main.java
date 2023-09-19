@@ -10,59 +10,158 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main{
-    public static void main(String[] args) {
-        Library lib = new Library();
-        StudentRepository studentRepository = new StudentRepository();
-        BookRepository bookRepository = new BookRepository();
-        LoanRepository loanRepository = new LoanRepository();
+    Scanner scanner = new Scanner(System.in);
 
-        DataManipulation manipulator = new DataManipulation
-                (
-                        studentRepository.getStudents(),
-                        bookRepository.getBooks(),
-                        loanRepository.getLoans()
-                );
+    Library lib = new Library();
+    StudentRepository studentRepository = new StudentRepository();
+    BookRepository bookRepository = new BookRepository();
+    LoanRepository loanRepository = new LoanRepository();
+
+    DataManipulation manipulator = new DataManipulation
+            (
+                    studentRepository.getStudents(),
+                    bookRepository.getBooks(),
+                    loanRepository.getLoans()
+            );
+
+    private void menu () {
+        System.out.println("0 - EXIT");
+        System.out.println("1 - LIST MENU");
+        System.out.println("2 - LIBRARY MENU");
+        System.out.println("3 - DB MENU");
+        System.out.print("-> ");
+        int option = scanner.nextInt();
+
+        switch (option) {
+            case 1 -> {
+                listingMenu();
+            }
+            case 2 -> {
+                libraryMenu();
+            }
+            case 3 -> {
+                dbMenu();
+            }
+            case 0 -> {
+                System.exit(1);
+            }
+        }
+    }
+
+    private void listingMenu() {
+        System.out.println("1 - LIST STUDENTS");
+        System.out.println("2 - LIST BOOKS");
+        System.out.println("3 - LIST LOANS");
+        System.out.println("4 - LIST LOANS NOT RETURNED");
+        System.out.print("-> ");
+        int option = scanner.nextInt();
+
+        switch (option) {
+            case 1 -> {
+                studentRepository.listStudent();
+            }
+            case 2 -> {
+                bookRepository.listBook();
+            }
+            case 3 -> {
+                loanRepository.listLoan();
+            }
+            case 4 -> {
+                loanRepository.listLoanNotReturned();
+            }
+            default -> {
+                menu();
+            }
+        }
+    }
+
+    private void libraryMenu() {
+        System.out.println("1 - LOAN BOOK");
+        System.out.println("2 - RETURN BOOK");
+        System.out.println("3 - UPDATE ACTIVE BOOKS");
+        System.out.println("4 - UPDATE DELAYED BOOKS");
+        System.out.print("-> ");
+        int option = scanner.nextInt();
+
+        switch (option) {
+            case 1 -> {
+                lib.takeBook();
+            }
+            case 2 -> {
+                lib.returnLoan();
+            }
+            case 3 -> {
+                lib.updateActiveLoan();
+            }
+            case 4 -> {
+                lib.updateDelayedLoan();
+            }
+            default -> {
+                menu();
+            }
+        }
+    }
+
+    private void dbMenu() {
+        System.out.println("1 - ADD BOOK");
+        System.out.println("2 - ADD STUDENT");
+        System.out.println("3 - ADD LOAN");
+        System.out.println("4 - GET ALL BOOKS FROM DB");
+        System.out.print("-> ");
+        int option = scanner.nextInt();
+
+        switch (option) {
+            case 1 -> {
+                bookRepository.insertBook(111, "As Cronicas de Gelo e Fogo", "George R R Martin");
+                //add book
+            }
+            case 2 -> {
+                studentRepository.insertStudent(111, "Lucas Javeiro");
+                //add student
+            }
+            case 3 -> {
+                loanRepository.insertLoan
+                        (
+                                111,
+                                111,
+                                LocalDate.parse("2023-09-17"),
+                                LocalDate.parse("2023-09-24"),
+                                Status.RETURNED
+                        );
+                //add loan
+            }
+            case 4 -> {
+                System.out.println(bookRepository.getAllBooks());
+                //get all books db
+            }
+            case 5 -> {
+                System.out.println("TODO");
+                // get all student db
+            }
+            case 6 -> {
+                System.out.println("TODO");
+                // get all loan db
+            }
+            case 7 -> {
+                bookRepository.clearTable();
+                // clear tables
+            }
+            default -> {
+                menu();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+        Scanner scanner = new Scanner(System.in);
 
         if (new DbConnection().getConnection() != null) {
-
-            Scanner scanner = new Scanner(System.in);
-            int option;
-
             do{
-                System.out.println("0 - EXIT");
-                System.out.println("1 - LIST STUDENTS");
-                System.out.println("2 - LIST BOOKS");
-                System.out.println("3 - LIST LOANS");
-                System.out.println("4 - LIST LOANS NOT RETURNED");
-                System.out.println("5 - LOAN BOOK");
-                System.out.println("6 - RETURN BOOK");
-                System.out.println("7 - UPDATE ACTIVE BOOKS");
-                System.out.println("8 - UPDATE DELAYED BOOKS");
-                System.out.println("9 - ADD BOOK");
-                System.out.println("10 - ADD STUDENT");
-                System.out.println("11 - ADD LOAN");
-                System.out.println("12 - GET ALL BOOKS FROM DB");
-                System.out.print("--> ");
-                option = scanner.nextInt();
+                main.menu();
+            }while(true);
 
-                switch (option) {
-                    case 1 : studentRepository.listStudent(); break;
-                    case 2 : bookRepository.listBook(); break;
-                    case 3 : loanRepository.listLoan(); break;
-                    case 4 : loanRepository.listLoanNotReturned(); break;
-                    case 5 : lib.takeBook(); break;
-                    case 6 : lib.returnLoan(); break;
-                    case 7 : lib.updateActiveLoan(); break;
-                    case 8 : lib.updateDelayedLoan(); break;
-                    case 9 : bookRepository.insertBook(111, "As Cronicas de Gelo e Fogo", "George R R Martin"); break;
-                    case 10: studentRepository.insertStudent(111, "Lucas Javeiro");break;
-                    case 11: loanRepository.insertLoan(111,111, LocalDate.parse("2023-09-17"), LocalDate.parse("2023-09-24"), Status.RETURNED);break;
-                    case 12: System.out.println(bookRepository.getAllBooks());break;
-                    case 13: bookRepository.clearTable(); break;
-
-                }
-            } while(option != 0);
         }
 
-    };
+    }
 };
